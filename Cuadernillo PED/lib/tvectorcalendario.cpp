@@ -39,16 +39,44 @@ TVectorCalendario::~TVectorCalendario() {
 	}
 }
 
+
+TVectorCalendario::TVectorCalendario(TVectorCalendario &v)
+{
+	if(this->c!=NULL)
+		{
+			this->tamano=0;
+			delete [] c;
+			this->c = NULL;
+		}
+
+
+		this->c = new TCalendario[v.tamano];
+		this->tamano = v.tamano;
+		this->error = TCalendario();
+
+		for(int i=0;i<tamano;i++)
+			c[i]=v.c[i];
+}
+
 TVectorCalendario &
 TVectorCalendario::operator=(TVectorCalendario &v)
 {
-	this.~TVectorCalendario();
+	if(this->c!=NULL)
+	{
+		this->tamano=0;
+		delete [] c;
+		this->c = NULL;
+	}
 
-	this->c = TCalendario[v.Tamano];
-	this->tamano = v.Tamano();
+
+	this->c = new TCalendario[v.tamano];
+	this->tamano = v.tamano;
 	this->error = TCalendario();
 
-	return this;
+	for(int i=0;i<tamano;i++)
+		c[i]=v.c[i];
+
+	return *this;
 }
 
 bool
@@ -75,7 +103,7 @@ TVectorCalendario::operator==(TVectorCalendario &v)
 bool
 TVectorCalendario::operator!=(TVectorCalendario &v)
 {
-	if(this==v)
+	if(*this==v)
 		return false;
 
 	return true;
@@ -143,4 +171,4 @@ TVectorCalendario::MostrarMensajes(int d,int m,int a)
 }
 
 
-//actualizadooooooo
+
