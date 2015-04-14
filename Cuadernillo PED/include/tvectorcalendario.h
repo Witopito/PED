@@ -22,7 +22,7 @@ TVectorCalendario();
 TVectorCalendario(int);
 TVectorCalendario(TVectorCalendario &);
 ~TVectorCalendario();
-TVectorCalendario & operator=(TVectorCalendario &);
+TVectorCalendario & operator=(const TVectorCalendario &);
 
 //metodos
 bool operator==(TVectorCalendario &);

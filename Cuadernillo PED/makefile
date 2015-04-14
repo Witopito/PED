@@ -18,8 +18,11 @@ OBJ = $(patsubst %,$(LIBDIR)/%,$(_OBJ))
 #tadcalendario:    src/tadcalendario.cpp $(OBJ)
 #	$(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) src/tadcalendario.cpp $(OBJ) -o tadcalendario
 
-main:    src/main.cpp $(OBJ)
-	$(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) src/main.cpp $(OBJ) -o main
+#main:    src/main.cpp $(OBJ)
+#	$(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) src/main.cpp $(OBJ) -o main
+	
+main2:    src/main2.cpp $(OBJ)
+	$(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) src/main2.cpp $(OBJ) -o main2
 
 #$(LIBDIR)/%.o : $(LIBDIR)/%.cpp $(INCLUDEDIR)/%.h
 #	$(CC) $(OPTIONS) $(DEBUG) -c -I$(INCLUDEDIR) -o $@ $<
