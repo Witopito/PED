@@ -13,22 +13,35 @@ using namespace std;
 
 int main()
 {
-	TVectorCalendario a(6);
-   TCalendario ca1(1,1,2006, (char*) "uno"), ca2(1,2,2006, (char*) "dos"), ca3(1,3,2006, (char*) "tres");
-   a[1]=ca1;
-   a[2]=ca2;
-   a[3]=ca3;
-   a[4]=ca1;
-   a[5]=ca2;
-   a[6]=ca3;
-   a.Redimensionar(0);
-   cout<<a<<endl;
-   a.Redimensionar(10);
-   cout<<a<<endl;
-   a.Redimensionar(2);
-   cout<<a<<endl;
-   return 0;
+	   TVectorCalendario a(3);
+	   TCalendario ca1(1,1,2006, (char*) "uno"), ca2(1,2,2006, (char*) "dos"), ca3(1,3,2006, (char*) "tres");
+	   TCalendario ca1b(1,1,2006,NULL), ca2b(1,2,2006, (char*) ""), ca3b(1,3,2006, (char*) " tres"), ca4b(1,3,2006, (char*) "tres");
 
+	   a[1]=ca1;
+	   a[2]=ca2;
+	   a[3]=ca3;
+
+	   if (a.ExisteCal(ca1b))
+	      cout<<"Existe"<<endl;
+	   else
+	      cout<<"No existe"<<endl;
+
+	   if (a.ExisteCal(ca2b))
+	      cout<<"Existe"<<endl;
+	   else
+	      cout<<"No existe"<<endl;
+
+	   if (a.ExisteCal(ca3b))
+	      cout<<"Existe"<<endl;
+	   else
+	      cout<<"No existe"<<endl;
+
+	   if (a.ExisteCal(ca4b))
+	         cout<<"Existe"<<endl;
+	      else
+	         cout<<"No existe"<<endl;
+
+	   return 0;
 }
 
 

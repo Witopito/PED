@@ -11,7 +11,7 @@ main(void)
 {
    TVectorCalendario a(3);
    TCalendario ca1(1,1,2006, (char*) "uno"), ca2(1,2,2006, (char*) "dos"), ca3(1,3,2006, (char*) "tres");
-   TCalendario ca1b(1,1,2006,NULL), ca2b(1,2,2006, (char*) ""), ca3b(1,3,2006, (char*) " tres");
+   TCalendario ca1b(1,1,2006,NULL), ca2b(1,2,2006, (char*) ""), ca3b(1,3,2006, (char*) " tres"), ca4b(1,3,2006, (char*) "tres");
 
    a[1]=ca1;
    a[2]=ca2;
@@ -32,5 +32,10 @@ main(void)
    else
       cout<<"No existe"<<endl;
    
+   if (a.ExisteCal(ca4b))
+         cout<<"Existe"<<endl;
+      else
+         cout<<"No existe"<<endl;
+
    return 0;
 }

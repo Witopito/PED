@@ -141,7 +141,7 @@ void
 TVectorCalendario::MostrarMensajes(int d,int m,int a)
 {
 	TCalendario aux = TCalendario();
-	TVectorCalendario v = (*this);
+	//TVectorCalendario v(*this);
 	bool primera = true;
 	if(!aux.comprobarFecha(d,m,a))
 	{
@@ -153,7 +153,7 @@ TVectorCalendario::MostrarMensajes(int d,int m,int a)
 		cout << "[";
 		for(int i=1;i<=tamano;i++)
 		{
-			if(v[i].mayorFecha(aux))
+			if((*this)[i].mayorFecha(aux))
 			{
 				if(primera == true)
 				{
@@ -164,9 +164,10 @@ TVectorCalendario::MostrarMensajes(int d,int m,int a)
 					cout << ", ";
 				}
 
-				cout << v[i];
+				cout << (*this)[i];
 			}
 		}
+		cout << "]" << endl;
 	}
 }
 
@@ -247,7 +248,16 @@ ostream& operator<<(ostream &x, const TVectorCalendario &vec)
 	}
 
 
-
+bool
+TVectorCalendario::ExisteCal(TCalendario &c)
+{
+	for(int i=1;i<=tamano;i++)
+	{
+		if((*this)[i]==c)
+			return true;
+	}
+	return false;
+}
 
 
 
