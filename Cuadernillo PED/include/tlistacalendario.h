@@ -27,6 +27,7 @@ private:
 class TListaCalendario{
 	friend ostream & operator <<(ostream &, TListaCalendario &);
 	friend class TListaPos;
+	friend class TNodoCalendario;
 public:
 	//Forma canonica
 	TListaCalendario();

@@ -7,12 +7,36 @@
 
 #include "tlistacalendario.h"
 
-tlistacalendario::tlistacalendario() {
-	// TODO Auto-generated constructor stub
-
+TListaCalendario::TListaCalendario() {
+	primero=NULL;
 }
 
-tlistacalendario::~tlistacalendario() {
-	// TODO Auto-generated destructor stub
+TListaCalendario::TListaCalendario(TListaCalendario &l)
+{
+	primero=l.primero;
 }
 
+TListaCalendario::~TListaCalendario() {
+	TListaPos p,q;
+
+	q=primero;
+	while(q!=q.EsVacia())
+	{
+		p=q;
+		q=q.Siguiente();
+		delete p.pos;
+	}
+	primero=NULL;
+}
+
+TListaCalendario &
+TListaCalendario::operator=(TListaCalendario &l)
+{
+	return *this;
+}
+
+bool
+TListaCalendario::operator==(TListaCalendario &l)
+{
+
+}
