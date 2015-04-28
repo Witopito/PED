@@ -10,6 +10,10 @@
 #include <iostream>
 #include "tcalendario.h"
 
+class TNodoCalendario;
+class TListaPos;
+
+
 class TNodoCalendario {
 public:
 	//forma canonica
@@ -61,11 +65,11 @@ public:
 	TListaPos();
 	TListaPos(TListaPos &);
 	~TListaPos();
-	TListaPos & operator=(TListaPos &);
+	TListaPos & operator=(const TListaPos &);
 
 	//metodos
 	bool operator==(TListaPos &);
-	bool operator!=(TListapos &);
+	bool operator!=(TListaPos &);
 	TListaPos Siguiente();
 	bool EsVacia();
 private:

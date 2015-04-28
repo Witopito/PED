@@ -5,7 +5,7 @@ OPTIONS= -g
 DEBUG= #-D DEBUG
 LIBDIR=lib
 INCLUDEDIR=include
-_OBJ= tcalendario.o tvectorcalendario.o
+_OBJ= tcalendario.o tvectorcalendario.o tlistacalendario.o
 #tvectorcalendario.o tlistacalendario.o 
 OBJ = $(patsubst %,$(LIBDIR)/%,$(_OBJ))
 
@@ -31,6 +31,9 @@ lib/tcalendario.o : lib/tcalendario.cpp include/tcalendario.h
 	$(CC) $(OPTIONS) $(DEBUG) -c -I$(INCLUDEDIR) -o $@ $<
 
 lib/tvectorcalendario.o : lib/tvectorcalendario.cpp include/tvectorcalendario.h
+	$(CC) $(OPTIONS) $(DEBUG) -c -I$(INCLUDEDIR) -o $@ $<
+	
+lib/tlistacalendario.o : lib/tlistacalendario.cpp include/tlistacalendario.h
 	$(CC) $(OPTIONS) $(DEBUG) -c -I$(INCLUDEDIR) -o $@ $<
 
 doc:
