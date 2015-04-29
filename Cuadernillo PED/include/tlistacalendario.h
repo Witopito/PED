@@ -10,11 +10,14 @@
 #include <iostream>
 #include "tcalendario.h"
 
+
 class TNodoCalendario;
 class TListaPos;
 
 
 class TNodoCalendario {
+	friend class TListaPos;
+	friend class TListaCalendario;
 public:
 	//forma canonica
 	TNodoCalendario();
@@ -51,8 +54,8 @@ public:
 	TCalendario Obtener(TListaPos &);
 	bool Buscar(TCalendario &);
 	int Longitud();
-	TListaPos Primera();
-	TListaPos Ultima();
+	TListaPos Primera() const;
+	TListaPos Ultima() const;
 	TListaCalendario SumarSub1(int I_L1, int F_L1, TListaCalendario & L2, int I_L2, int F_L2);
 	TListaCalendario ExtraerRango(int n1, int n2);
 private:
@@ -60,6 +63,8 @@ private:
 };
 
 class TListaPos{
+	friend class TNodoCalendario;
+	friend class TListaCalendario;
 public:
 	//forma canonica
 	TListaPos();

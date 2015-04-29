@@ -22,7 +22,7 @@ TListaCalendario::TListaCalendario(TListaCalendario &l)
 	q=q.Siguiente();
 
 	//A PARTIR DE SEGUNDO NODO
-	while(q!=q.EsVacia())
+	while(!q.EsVacia())
 	{
 		TNodoCalendario *aux=new TNodoCalendario();
 		aux=q.pos;
@@ -41,7 +41,7 @@ TListaCalendario::~TListaCalendario() {
 	TListaPos p,q;
 
 	q.pos=primero;
-	while(q!=q.EsVacia())
+	while(!q.EsVacia())
 	{
 		p=q;
 		q=q.Siguiente();
@@ -64,12 +64,16 @@ TListaCalendario::operator==(TListaCalendario &l)
 
 
 TListaPos
-TListaCalendario::Ultima();
+TListaCalendario::Ultima() const
+{
+	TListaPos prim;
+	return prim;
+}
 
 TListaPos
-TListaCalendario::Primera()
+TListaCalendario::Primera() const
 {
-	TListaPos prim = new TListaPos();
+	TListaPos prim;
 	return prim;
 }
 
@@ -123,13 +127,13 @@ TNodoCalendario::operator=(TNodoCalendario &n)
 //forma canonica
 TListaPos::TListaPos()
 {
-	this->pos=TNodoCalendario();
+	this->pos=new TNodoCalendario();
 }
 
 
 TListaPos::TListaPos(TListaPos &p)
 {
-	this->pos=*p.pos;
+	this->pos=p.pos;
 }
 
 TListaPos::~TListaPos()
@@ -167,12 +171,19 @@ TListaPos::operator!=(TListaPos &p)
 }
 
 
-TListaPos Siguiente();
+TListaPos
+TListaPos::Siguiente()
+{
+	TListaPos p;
+	p.pos=pos->siguiente;
+	return p;
+}
 
 bool
 TListaPos::EsVacia()
 {
-	//POR HACER
+	if(pos==NULL)
+		return true;
 	return false;
 }
 
