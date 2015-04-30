@@ -71,6 +71,8 @@ private:
 	void PostordenAux(TVectorCalendario &, int &);
 	void Copiar(const TABBCalendario &);
 	void Enraizar(TABBCalendario &iz, const TCalendario c, TABBCalendario &de);
+	bool buscaCalendario(const TCalendario c,TABBCalendario sub);
+
 
 };
 

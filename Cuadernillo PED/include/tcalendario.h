@@ -9,6 +9,7 @@
 #define TCALENDARIO_H_
 
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -43,13 +44,13 @@ public:
 	// Modifica el mensaje
 	bool ModMensaje(char *);
 	// Sobrecarga del operador igualdad;
-	bool operator ==(TCalendario &);
+	bool operator ==(const TCalendario &);
 	// Sobrecarga del operador desigualdad;
-	bool operator !=(TCalendario &);
+	bool operator !=(const TCalendario &);
 	// Sobrecarga del operador >; (ver ACLARACIÓN sobre ORDENACIÓN)
-	bool operator>(TCalendario &);
+	bool operator>(const TCalendario &);
 	// Sobrecarga del operador <; (ver ACLARACIÓN sobre ORDENACIÓN)
-	bool operator<(TCalendario &);
+	bool operator<(const TCalendario &);
 	//TCalendario vacío
 	bool EsVacio();
 	// Devuelve el día del calendario;
@@ -64,9 +65,9 @@ public:
 	//Comprueba si la fecha es valida
 	bool comprobarFecha();
 	bool comprobarFecha(int d,int m, int a);
-	bool mayorFecha(TCalendario &);
-	bool mayorMensaje(TCalendario &);
-	bool menorFecha(TCalendario &);
+	bool mayorFecha(const TCalendario &);
+	bool mayorMensaje(const TCalendario &);
+	bool menorFecha(const TCalendario &);
 
 
 

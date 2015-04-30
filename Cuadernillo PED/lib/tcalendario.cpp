@@ -1,12 +1,11 @@
 /*
- * TCalendario.cpp
+ * tcalendario.cpp
  *
  *  Created on: 04/02/2015
  *      Author: hmb6
  */
 
 #include "tcalendario.h"
-#include <string.h>
 #include <sstream>
 
 TCalendario::TCalendario() {
@@ -40,7 +39,7 @@ TCalendario::TCalendario(const TCalendario &a) {
 	this->dia=a.dia;
 	if(a.mensaje != NULL)
 	{
-		this->mensaje = new char[strlen(a.mensaje+1)];
+		this->mensaje = new char[strlen(a.mensaje)+1];
 		strcpy(mensaje,a.mensaje);
 	}
 	else
@@ -77,7 +76,7 @@ TCalendario:: operator=(const TCalendario &a)
 
 // Sobrecarga del operador SUMA de fecha + un número de dias;
 TCalendario
-TCalendario:: operator+(int a)
+TCalendario::operator+(int a)
 {
 	TCalendario temporal(*this);
 	if(a>0)
@@ -530,23 +529,23 @@ TCalendario::comprobarFecha(int d,int m, int a)
 
 
 // Sobrecarga del operador igualdad;
-bool TCalendario::operator ==(TCalendario &cal)
+bool TCalendario::operator==(const TCalendario &cal)
 {
 
 	//comparacion de campos fecha
-	if(this->dia!=cal.Dia() || this->mes!=cal.Mes() || this->anyo!=cal.Anyo() )
+	if(dia!=cal.dia || mes!=cal.mes || anyo!=cal.anyo )
 	{
 		return false;
 	}
 
-	if((mensaje!=NULL && cal.Mensaje()!=NULL))
+	if((mensaje!=NULL && cal.mensaje!=NULL))
 	{
-		if((strcmp(mensaje, cal.Mensaje())) < 0  || (strcmp(mensaje, cal.Mensaje())) > 0)
+		if((strcmp(mensaje, cal.mensaje)) < 0  || (strcmp(mensaje, cal.mensaje)) > 0)
 		{
 			return false;
 		}
 	}
-	else if(((mensaje==NULL && cal.Mensaje()!=NULL)) || (mensaje!=NULL && cal.Mensaje()==NULL))
+	else if(((mensaje==NULL && cal.mensaje!=NULL)) || (mensaje!=NULL && cal.mensaje==NULL))
 	{
 		return false;
 	}
@@ -557,7 +556,7 @@ bool TCalendario::operator ==(TCalendario &cal)
 
 
 // Sobrecarga del operador desigualdad;
-bool TCalendario::operator !=(TCalendario &cal)
+bool TCalendario::operator!=(const  TCalendario &cal)
 {
 	if(*this==cal)
 	{
@@ -569,7 +568,7 @@ bool TCalendario::operator !=(TCalendario &cal)
 
 
 // Sobrecarga del operador >; (ver ACLARACIÓN sobre ORDENACIÓN)
-bool TCalendario::operator>(TCalendario &cal)
+bool TCalendario::operator>(const  TCalendario &cal)
 {
 	if(mayorFecha(cal))
 	{
@@ -589,15 +588,15 @@ bool TCalendario::operator>(TCalendario &cal)
 	return false;
 }
 
-bool TCalendario::mayorMensaje(TCalendario &cal)
+bool TCalendario::mayorMensaje(const TCalendario &cal)
 {
-	if(mensaje!=NULL && cal.Mensaje()==NULL)
+	if(mensaje!=NULL && cal.mensaje==NULL)
 	{
 		return true;
 	}
-	if(mensaje!=NULL && cal.Mensaje()!=NULL)
+	if(mensaje!=NULL && cal.mensaje!=NULL)
 	{
-		if(strcmp(mensaje,cal.Mensaje()) > 0 )
+		if(strcmp(mensaje,cal.mensaje) > 0 )
 		{
 			return true;
 		}
@@ -607,17 +606,17 @@ bool TCalendario::mayorMensaje(TCalendario &cal)
 }
 
 
-bool TCalendario::mayorFecha(TCalendario &cal)
+bool TCalendario::mayorFecha(const TCalendario &cal)
 {
-	if(anyo > cal.Anyo())
+	if(anyo > cal.anyo)
 	{
 		return true;
 	}
-	else if(anyo == cal.Anyo() && mes > cal.Mes())
+	else if(anyo == cal.anyo && mes > cal.mes)
 	{
 		return true;
 	}
-	else if(anyo == cal.Anyo() && mes == cal.Mes() && dia > cal.Dia())
+	else if(anyo == cal.anyo && mes == cal.mes && dia > cal.dia)
 	{
 		return true;
 	}
@@ -625,17 +624,17 @@ bool TCalendario::mayorFecha(TCalendario &cal)
 	return false;
 }
 
-bool TCalendario::menorFecha(TCalendario &cal)
+bool TCalendario::menorFecha(const TCalendario &cal)
 {
-	if(anyo < cal.Anyo())
+	if(anyo < cal.anyo)
 	{
 		return true;
 	}
-	else if(anyo == cal.Anyo() && mes < cal.Mes())
+	else if(anyo == cal.anyo && mes < cal.mes)
 	{
 		return true;
 	}
-	else if(anyo == cal.Anyo() && mes == cal.Mes() && dia < cal.Dia())
+	else if(anyo == cal.anyo && mes == cal.mes && dia < cal.dia)
 	{
 		return true;
 	}
@@ -644,7 +643,7 @@ bool TCalendario::menorFecha(TCalendario &cal)
 }
 
 // Sobrecarga del operador <; (ver ACLARACIÓN sobre ORDENACIÓN)
-bool TCalendario::operator<(TCalendario &cal)
+bool TCalendario::operator<(const TCalendario &cal)
 {
 	if(*this==cal || *this>cal)
 	{

@@ -30,9 +30,19 @@ TNodoABB &
 TNodoABB::operator=(const TNodoABB &n)
 {
 	this->~TNodoABB();
-	item=n.item;
-	iz=n.iz;
-	de=n.de;
+		item=n.item;
+
+		if(n.iz.raiz!=NULL)
+			iz=n.iz;
+		else
+			iz=TABBCalendario();
+
+
+		if(n.de.raiz!=NULL)
+			de=n.de;
+		else
+			de=TABBCalendario();
+
 	return *this;
 }
 
@@ -65,7 +75,46 @@ TABBCalendario::operator=(const TABBCalendario &a)
 bool
 TABBCalendario::Insertar(const TCalendario &c)
 {
-	Enraizar(raiz->iz,c,raiz->de);
+	TABBCalendario aux(*this);
+	if(!buscaCalendario(c,aux))
+	{
+		Enraizar(raiz->iz,c,raiz->de);
+		return true;
+	}
+	return false;
+}
+
+bool
+TABBCalendario::EsVacio()
+{
+	if(raiz == NULL)
+		return true;
+	return false;
+}
+
+
+bool
+TABBCalendario::buscaCalendario(const TCalendario c,TABBCalendario sub)
+{
+	bool auxiz,auxde;
+
+	if(!sub.EsVacio() && sub.raiz->item == c)
+		return true;
+	else if(sub.EsVacio())
+		return false;
+	else if(sub.raiz->de.EsVacio() && sub.raiz->iz.EsVacio())
+		return false;
+	else if(!sub.raiz->iz.EsVacio() && sub.raiz->de.EsVacio())
+		return buscaCalendario(c,sub.raiz->iz);
+	else if(!sub.raiz->iz.EsVacio() && sub.raiz->de.EsVacio())
+		return buscaCalendario(c,sub.raiz->de);
+	else
+		auxiz=buscaCalendario(c,sub.raiz->iz);
+		auxde=buscaCalendario(c,sub.raiz->de);
+		if(auxiz==true || auxde== true)
+			return true;
+
+	return false;
 }
 
 void
@@ -78,8 +127,6 @@ TABBCalendario::Enraizar(TABBCalendario &iz, const TCalendario c, TABBCalendario
 	this->~TABBCalendario();
 	raiz=aux;
 }
-
-
 
 void
 TABBCalendario::Copiar(const TABBCalendario &origen)
@@ -95,3 +142,21 @@ TABBCalendario::Copiar(const TABBCalendario &origen)
 	else
 		raiz=NULL;
 }
+
+bool
+TABBCalendario::operator==( TABBCalendario &a)
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

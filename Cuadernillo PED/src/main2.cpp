@@ -6,6 +6,7 @@
  */
 #include "tcalendario.h"
 #include "tvectorcalendario.h"
+#include "tabbcalendario.h"
 #include <iostream>
 #include <string.h>
 
@@ -13,33 +14,12 @@ using namespace std;
 
 int main()
 {
-	   TVectorCalendario a(3);
-	   TCalendario ca1(1,1,2006, (char*) "uno"), ca2(1,2,2006, (char*) "dos"), ca3(1,3,2006, (char*) "tres");
-	   TCalendario ca1b(1,1,2006,NULL), ca2b(1,2,2006, (char*) ""), ca3b(1,3,2006, (char*) " tres"), ca4b(1,3,2006, (char*) "tres");
+	TABBCalendario a;
+	  TCalendario c1(1, 1,2000,(char *)"fecha"), c2(1, 1,2000,(char *)"fecha1"), c3(3, 3,2000,(char *)"fecha");
 
-	   a[1]=ca1;
-	   a[2]=ca2;
-	   a[3]=ca3;
-
-	   if (a.ExisteCal(ca1b))
-	      cout<<"Existe"<<endl;
-	   else
-	      cout<<"No existe"<<endl;
-
-	   if (a.ExisteCal(ca2b))
-	      cout<<"Existe"<<endl;
-	   else
-	      cout<<"No existe"<<endl;
-
-	   if (a.ExisteCal(ca3b))
-	      cout<<"Existe"<<endl;
-	   else
-	      cout<<"No existe"<<endl;
-
-	   if (a.ExisteCal(ca4b))
-	         cout<<"Existe"<<endl;
-	      else
-	         cout<<"No existe"<<endl;
+	  a.Insertar(c1);
+	  //a.Insertar(c2);
+	  //a.Insertar(c3);
 
 	   return 0;
 }
