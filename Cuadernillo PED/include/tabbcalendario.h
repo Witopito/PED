@@ -36,7 +36,7 @@ public:
 	// Borra el elemento en el árbol
 	bool Borrar(TCalendario &);
 	// Devuelve TRUE si el elemento está en el árbol, FALSE en caso contrario
-	bool Buscar(TCalendario &);
+	bool Buscar(const TCalendario &);
 	// Devuelve el elemento en la raíz del árbol
 	TCalendario Raiz();
 	// Devuelve la altura del árbol (la altura de un árbol vacío es 0)

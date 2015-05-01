@@ -84,8 +84,8 @@ TABBCalendario::Insertar(const TCalendario &c)
 	}
 	else
 	{
-		TABBCalendario aux(*this);
-		if(!buscaCalendario(c,aux))
+		//TABBCalendario aux(*this);
+		if(!Buscar(c))
 		{
 			this->insertarOrdenado(c);
 			return true;
@@ -137,6 +137,29 @@ TABBCalendario::EsVacio()
 	return false;
 }
 
+bool
+TABBCalendario::Buscar(const TCalendario &c)
+{
+	bool auxiz,auxde;
+
+	if(!EsVacio() &&raiz->item == c)
+		return true;
+	else if(EsVacio())
+		return false;
+	else if(raiz->de.EsVacio() && raiz->iz.EsVacio())
+		return false;
+	else if(!raiz->iz.EsVacio() && raiz->de.EsVacio())
+		return raiz->iz.Buscar(c);
+	else if(!raiz->iz.EsVacio() && raiz->de.EsVacio())
+		return raiz->de.Buscar(c);
+	else
+		auxiz=raiz->iz.Buscar(c);
+		auxde=raiz->de.Buscar(c);
+		if(auxiz==true || auxde== true)
+			return true;
+
+	return false;
+}
 
 bool
 TABBCalendario::buscaCalendario(const TCalendario &c,TABBCalendario sub)
@@ -182,7 +205,7 @@ TABBCalendario::auxBuscar(TABBCalendario a)
 {
 	bool auxiz=true,auxde=true;
 	TABBCalendario aux(*this);
-	if(!buscaCalendario(a.raiz->item,aux))
+	if(!Buscar(a.raiz->item))
 		return false;
 	else
 	{
@@ -195,14 +218,54 @@ TABBCalendario::auxBuscar(TABBCalendario a)
 	}
 
 	return true;
+}
+
+int
+TABBCalendario::Nodos()
+{
+	if(raiz==NULL)
+		return 0;
+	else
+		if(raiz->iz.EsVacio()&&raiz->de.EsVacio())
+			return 1;
+		else if(!raiz->iz.EsVacio()&&!raiz->de.EsVacio())
+			return 1+(raiz->iz.Nodos())+(raiz->de.Nodos());
+		else if(!raiz->iz.EsVacio())
+			return 1+(raiz->iz.Nodos());
+		else
+			return 1+(raiz->de.Nodos());
+
+	return 0;
+}
+
+int
+TABBCalendario::NodosHoja()
+{
+	if(raiz==NULL)
+		return 0;
+	else
+		if(raiz->iz.EsVacio()&&raiz->de.EsVacio())
+			return 1;
+		else if(!raiz->iz.EsVacio()&&!raiz->de.EsVacio())
+			return ((raiz->iz.NodosHoja())+(raiz->de.NodosHoja()));
+		else if(!raiz->iz.EsVacio())
+			return ((raiz->iz.NodosHoja()));
+		else
+			return ((raiz->de.NodosHoja()));
+
+	return 0;
 }
 
 bool
 TABBCalendario::operator==(TABBCalendario &a)
 {
 	bool auxiz=true,auxde=true;
-	TABBCalendario aux(*this);
-	if(!buscaCalendario(a.raiz->item,aux))
+	//TABBCalendario aux(*this);
+
+
+	if(Nodos()!=a.Nodos())
+		return false;
+	if(!Buscar(a.raiz->item))
 		return false;
 	else
 	{
@@ -218,7 +281,18 @@ TABBCalendario::operator==(TABBCalendario &a)
 }
 
 
+int
+TABBCalendario::Altura()
+{
+	int a1,a2;
 
+	if(raiz!=NULL)
+	{
+		a1=raiz->iz.Altura();
+		a2=raiz->de.Altura();
+		return (1+(a1<a2 ? a2 : a1));
+	}
+}
 
 
 
