@@ -74,14 +74,22 @@ TABBCalendario::operator=(const TABBCalendario &a)
 }
 
 bool
-TABBCalendario::Insertar(const TCalendario &c)
+TABBCalendario::Insertar(TCalendario &c)
 {
 	if(this->EsVacio())
 	{
-		TNodoABB *x=new TNodoABB();
-		x->item=c;
-		raiz=x;
-		return true;
+		if(!c.EsVacio())
+		{
+			TNodoABB *x=new TNodoABB();
+			x->item=c;
+			raiz=x;
+			return true;
+		}
+		else
+		{
+			cout << cerr << " No se pueden insertar dos arboles repetidos" << endl;
+			return false;
+		}
 	}
 	else
 	{
@@ -90,6 +98,10 @@ TABBCalendario::Insertar(const TCalendario &c)
 		{
 			this->insertarOrdenado(c);
 			return true;
+		}
+		else
+		{
+			cout << cerr << " No se pueden insertar dos arboles repetidos" << endl;
 		}
 	}
 	return false;
@@ -127,7 +139,11 @@ TABBCalendario::insertarOrdenado(TCalendario c)
 TCalendario
 TABBCalendario::Raiz()
 {
-	return raiz->item;
+	if(!EsVacio())
+		return raiz->item;
+	else
+		cout << cerr << " arbol vacio no tiene raiz" << endl;
+	return TCalendario();
 }
 
 bool
@@ -313,22 +329,37 @@ TABBCalendario::Borrar(TCalendario &c)
 				TNodoABB *aux = new TNodoABB();
 				aux=raiz->iz.raiz;
 				raiz=aux;
+				return true;
 			}
 			else if(raiz->iz.EsVacio())
 			{
 				TNodoABB *aux = new TNodoABB();
 				aux=raiz->de.raiz;
 				raiz=aux;
+				return true;
 			}
 			else
 			{
-				TNodoABB *aux = new TNodoABB(Max());
-				//aux=Max();				//se crea el nodo auxiliar con el del maximo de la izquierda
-				aux->de=raiz->de;		//se cuelga la parte derecha del arbol actual, en la derecha del aux
-				Borrar(aux->item);		//se borra el nodo hoja maximo de la derecha
-				raiz=aux;				//se sustituye el actual por el aux
+
+				TNodoABB *aux = new TNodoABB(raiz->iz.Max());
+				TNodoABB *aux2 = new TNodoABB();
+				aux2=raiz;
+				TCalendario *cal = new TCalendario(raiz->iz.Max().item);
+
+				aux->de=raiz->de;			//se cuelga la parte derecha del arbol actual, en la derecha del aux
+				aux2->iz.Borrar(*cal);
+				aux->iz=aux2->iz;
+
+				raiz=aux;
+
+
+				return true;
 			}
 		}
+	}
+	else
+	{
+		cout << cerr << " El elemento no esta en el arbol" << endl;
 	}
 	return false;
 }
@@ -393,8 +424,8 @@ TABBCalendario::PostordenAux(TVectorCalendario &v, int &a)
 {
 	if(!EsVacio())
 	{
-		raiz->iz.InordenAux(v,a);
-		raiz->de.InordenAux(v,a);
+		raiz->iz.PostordenAux(v,a);
+		raiz->de.PostordenAux(v,a);
 		v[a]=raiz->item;
 		a++;
 	}

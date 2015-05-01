@@ -33,7 +33,7 @@ public:
 	// Devuelve TRUE si el árbol está vacío, FALSE en caso contrario
 	bool EsVacio();
 	// Inserta el elemento en el árbol
-	bool Insertar(const TCalendario &);
+	bool Insertar(TCalendario &);
 	// Borra el elemento en el árbol
 	bool Borrar(TCalendario &);
 	// Devuelve TRUE si el elemento está en el árbol, FALSE en caso contrario
@@ -76,6 +76,7 @@ private:
 	void insertarOrdenado(TCalendario c);
 	bool auxBuscar(TABBCalendario a);
 	TNodoABB Max();
+
 
 
 

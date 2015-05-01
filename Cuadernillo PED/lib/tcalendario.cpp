@@ -736,7 +736,7 @@ bool TCalendario::operator<(const TCalendario &cal)
 			}
 		}
 
-		x << " " << mens;
+		x << " \"" << mens << "\"";
 
 		return x;
 	}
