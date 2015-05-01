@@ -378,19 +378,63 @@ TABBCalendario::InordenAux(TVectorCalendario &v, int &a)
 }
 
 
+TVectorCalendario
+TABBCalendario::Postorden()
+{
+	int posicion=1;
+	TVectorCalendario v(Nodos());
+	PostordenAux(v,posicion);
+	return v;
+}
+
+void
+TABBCalendario::PostordenAux(TVectorCalendario &v, int &a)
+{
+	if(!EsVacio())
+	{
+		raiz->iz.InordenAux(v,a);
+		raiz->de.InordenAux(v,a);
+		v[a]=raiz->item;
+		a++;
+	}
+}
+
+TVectorCalendario
+TABBCalendario::Preorden()
+{
+	int posicion=1;
+	TVectorCalendario v(Nodos());
+	PreordenAux(v,posicion);
+	return v;
+}
+
+
+void
+TABBCalendario::PreordenAux(TVectorCalendario &v, int &a)
+{
+	if(!EsVacio())
+	{
+		v[a]=raiz->item;
+		a++;
+		raiz->iz.PreordenAux(v,a);
+		raiz->de.PreordenAux(v,a);
+	}
+}
 
 
 
 
 
+TVectorCalendario
+TABBCalendario::Niveles()
+{
+	int posicion=1;
+	TVectorCalendario v(Nodos());
+	PreordenAux(v,posicion);
+	return v;
+}
 
-//void PreordenAux(TVectorCalendario &, int &);
-//void PostordenAux(TVectorCalendario &, int &);
 
-
-//TVectorCalendario Preorden();
-//TVectorCalendario Postorden();
-//TVectorCalendario Niveles();
 //friend ostream & operator<<(ostream &, TABBCalendario &);
 //TABBCalendario operator+( TABBCalendario &);
 //TABBCalendario operator-( TABBCalendario &);

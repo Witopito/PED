@@ -68,7 +68,7 @@ int main()
 
 */
 
-	  cout << d.Inorden() << endl;
+	  cout << e.Preorden() << endl;
 
 
 
