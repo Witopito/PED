@@ -462,13 +462,38 @@ ostream & operator<<(ostream &x, TABBCalendario &a)
 }
 
 
-TABBCalendario operator+( TABBCalendario &b)
+TABBCalendario
+TABBCalendario::operator+(TABBCalendario &b)
 {
+	TVectorCalendario v;
+	v=b.Inorden();
 
+	TABBCalendario a(*this);
+	for(int i=1;i<=b.Nodos();i++)
+		a.Insertar(v[i]);
+	return a;
+}
+
+TABBCalendario
+TABBCalendario::operator-(TABBCalendario &b)
+{
+	TVectorCalendario v;
+	v=this->Inorden();
+
+	TABBCalendario a;
+	for(int i=1;i<=this->Nodos();i++)
+	{
+		if(!b.Buscar(v[i]))
+			a.Insertar(v[i]);
+	}
+	return a;
 }
 
 
-//TABBCalendario operator-( TABBCalendario &);
+
+
+
+
 
 
 

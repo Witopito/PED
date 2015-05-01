@@ -15,18 +15,17 @@ using namespace std;
 int main()
 {
 	TABBCalendario a,b,c,d,e;
-	  TCalendario c1(1, 1,2000,(char *)"fecha"), c2(20, 2,2000,(char *)"fecha1"), c3(30, 3,2000,(char *)"fecha");
-	  TCalendario c4(27,2,1989,(char *)"Holi"), c5(15, 2, 2000,(char *)"fecha");
+	  TCalendario c1(1, 1,2000,(char *)"fecha"), c2(20, 2,2001,(char *)"fecha1"), c3(30, 3,2002,(char *)"fecha");
+	  TCalendario c4(27,2,2003,(char *)"Holi"), c5(15, 2, 2004,(char *)"fecha"), c6(3, 2, 2005,(char *)"fecha");
 	  a.Insertar(c2);
 	  a.Insertar(c1);
 	  a.Insertar(c3);
 
 	  b.Insertar(c2);
-	  b.Insertar(c1);
-	  b.Insertar(c3);
 	  b.Insertar(c4);
+	  b.Insertar(c6);
 
-	  c.Insertar(c1);
+	  /*c.Insertar(c1);
 	  c.Insertar(c2);
 	  c.Insertar(c3);
 
@@ -35,7 +34,7 @@ int main()
 	  d.Insertar(c3);
 	  d.Insertar(c4);
 	  d.Insertar(c5);
-
+*/
 
 /*
 	  cout << "Nodos de a: " << a.Nodos() << endl;
@@ -68,8 +67,11 @@ int main()
 
 */
 
-	  cout << d << endl;
+	  cout << a << endl;
 
+	  a=a-b;
+
+	  cout << a << endl;
 
 
 
