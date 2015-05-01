@@ -10,6 +10,7 @@
 #include "tcalendario.h"
 #include "tvectorcalendario.h"
 #include <iostream>
+#include <queue>
 
 class TNodoABB;
 class TABBCalendario;

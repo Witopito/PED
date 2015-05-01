@@ -68,7 +68,7 @@ int main()
 
 */
 
-	  cout << e.Preorden() << endl;
+	  cout << d << endl;
 
 
 

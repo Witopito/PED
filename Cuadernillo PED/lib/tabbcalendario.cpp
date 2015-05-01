@@ -6,6 +6,7 @@
  */
 
 #include "tabbcalendario.h"
+#include <queue>
 
 
 /////////////////////////////////TNodoABB//////////////////////////////////////////////
@@ -428,15 +429,45 @@ TABBCalendario::PreordenAux(TVectorCalendario &v, int &a)
 TVectorCalendario
 TABBCalendario::Niveles()
 {
-	int posicion=1;
+	int contador=1;
+	queue<TABBCalendario> cola;
 	TVectorCalendario v(Nodos());
-	PreordenAux(v,posicion);
+	TABBCalendario aux;
+	aux=(*this);
+	cola.push(aux);
+
+	while(!cola.empty())
+	{
+		aux=(cola.front());
+		v[contador]=aux.raiz->item;
+		contador++;
+		cola.pop();
+		if(!aux.raiz->iz.EsVacio())
+			cola.push(aux.raiz->iz);
+		if(!aux.raiz->de.EsVacio())
+			cola.push(aux.raiz->de);
+	}
+
 	return v;
 }
 
 
-//friend ostream & operator<<(ostream &, TABBCalendario &);
-//TABBCalendario operator+( TABBCalendario &);
+ostream & operator<<(ostream &x, TABBCalendario &a)
+{
+	TVectorCalendario v;
+	v=a.Niveles();
+	x << v;
+
+	return x;
+}
+
+
+TABBCalendario operator+( TABBCalendario &b)
+{
+
+}
+
+
 //TABBCalendario operator-( TABBCalendario &);
 
 
