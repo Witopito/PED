@@ -59,6 +59,18 @@ int main()
 	  cout << "Altura de d: " << d.Altura() << endl;
 	  cout << "Altura de e: " << e.Altura() << endl;
 */
+	  /*
+	  cout << "Nodos de c: " << c.Nodos() << endl;
+	  cout << "Nodoshoja de c: " << c.NodosHoja() << endl;
+	 c.Borrar(c2);
+	  cout << "Nodos de c: " << c.Nodos() << endl;
+	  cout << "Nodoshoja de c: " << c.NodosHoja() << endl;
+
+*/
+
+	  cout << d.Inorden() << endl;
+
+
 
 
 

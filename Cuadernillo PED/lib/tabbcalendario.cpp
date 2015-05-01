@@ -296,9 +296,104 @@ TABBCalendario::Altura()
 
 
 
+bool
+TABBCalendario::Borrar(TCalendario &c)
+{
+	if(Buscar(c))
+	{
+		if(c < raiz->item)
+			raiz->iz.Borrar(c);
+		else if(c > raiz->item)
+			raiz->de.Borrar(c);
+		else
+		{
+			if(raiz->de.EsVacio())
+			{
+				TNodoABB *aux = new TNodoABB();
+				aux=raiz->iz.raiz;
+				raiz=aux;
+			}
+			else if(raiz->iz.EsVacio())
+			{
+				TNodoABB *aux = new TNodoABB();
+				aux=raiz->de.raiz;
+				raiz=aux;
+			}
+			else
+			{
+				TNodoABB *aux = new TNodoABB(Max());
+				//aux=Max();				//se crea el nodo auxiliar con el del maximo de la izquierda
+				aux->de=raiz->de;		//se cuelga la parte derecha del arbol actual, en la derecha del aux
+				Borrar(aux->item);		//se borra el nodo hoja maximo de la derecha
+				raiz=aux;				//se sustituye el actual por el aux
+			}
+		}
+	}
+	return false;
+}
+
+TNodoABB
+TABBCalendario::Max()
+{
+	TNodoABB *aux = new TNodoABB();
+	if(EsVacio())
+	{
+		return *aux;
+	}
+	if(raiz->de.EsVacio())
+	{
+		aux=raiz;
+		return *aux;
+	}
+	else
+	{
+
+		aux=new TNodoABB(raiz->de.Max());
+		return *aux;
+	}
+
+	return *aux;
+}
+
+
+TVectorCalendario
+TABBCalendario::Inorden()
+{
+	int posicion=1;
+	TVectorCalendario v(Nodos());
+	InordenAux(v,posicion);
+	return v;
+}
+
+void
+TABBCalendario::InordenAux(TVectorCalendario &v, int &a)
+{
+	if(!EsVacio())
+	{
+		raiz->iz.InordenAux(v,a);
+		v[a]=raiz->item;
+		a++;
+		raiz->de.InordenAux(v,a);
+	}
+}
 
 
 
+
+
+
+
+
+//void PreordenAux(TVectorCalendario &, int &);
+//void PostordenAux(TVectorCalendario &, int &);
+
+
+//TVectorCalendario Preorden();
+//TVectorCalendario Postorden();
+//TVectorCalendario Niveles();
+//friend ostream & operator<<(ostream &, TABBCalendario &);
+//TABBCalendario operator+( TABBCalendario &);
+//TABBCalendario operator-( TABBCalendario &);
 
 
 

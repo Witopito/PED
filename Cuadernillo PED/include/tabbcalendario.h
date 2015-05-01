@@ -74,6 +74,9 @@ private:
 	bool buscaCalendario(const TCalendario &c,TABBCalendario sub);
 	void insertarOrdenado(TCalendario c);
 	bool auxBuscar(TABBCalendario a);
+	TNodoABB Max();
+
+
 
 };
 
