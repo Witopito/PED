@@ -74,12 +74,115 @@ TListaPos
 TListaCalendario::Primera() const
 {
 	TListaPos prim;
+	prim.pos=primero;
 	return prim;
 }
 
+bool
+TListaCalendario::Insertar(const TCalendario &cal)
+{
+	TListaPos p,q;
 
 
 
+	if(!EsVacia())
+	{
+		if(!Buscar(cal))
+		{
+			p.pos=primero;
+			q=p.Siguiente();
+			//primera posicion
+			if(p.pos->c>cal)
+			{
+				TNodoCalendario *nuevo = new TNodoCalendario();
+				nuevo->c=cal;
+				primero=nuevo;
+				nuevo->siguiente=p.pos;
+				return true;
+			}
+			else	//a partir de la segunda
+			{
+				while(!q.EsVacia())
+				{
+					if(q.pos->c>cal)
+					{
+						TNodoCalendario *nuevo = new TNodoCalendario();
+						nuevo->c=cal;
+						p.pos->siguiente=nuevo;
+						nuevo->siguiente=q.pos;
+						return true;
+					}
+					p=q;
+					q=q.Siguiente();
+				}
+				TNodoCalendario *nuevo = new TNodoCalendario();
+				nuevo->c=cal;
+				primero=nuevo;
+				return true;
+			}
+		}
+	}
+	else
+	{
+		TNodoCalendario *nuevo = new TNodoCalendario();
+		nuevo->c=cal;
+		primero=nuevo;
+		return true;
+	}
+
+	return false;
+
+}
+
+bool
+TListaCalendario::Buscar(const TCalendario &cal)
+{
+	TListaPos q;
+	q.pos=primero;
+	while(!q.EsVacia())
+	{
+		if(q.pos->c==cal)
+			return true;
+		q=q.Siguiente();
+	}
+	return false;
+}
+
+bool
+TListaCalendario::EsVacia() const
+{
+	if(primero==NULL)
+		return true;
+	return false;
+}
+
+TCalendario
+TListaCalendario::Obtener(const TListaPos &p) const
+{
+	return p.pos->c;
+}
+
+
+ostream& operator<<(ostream &x,const TListaCalendario &l)
+{
+	TListaPos q;
+	x<<"<";
+	if(!l.EsVacia())
+	{
+		q=l.Primera();
+		while(!q.EsVacia())
+		{
+			if(!q.Siguiente().EsVacia())
+				x<< l.Obtener(q) << " ";
+			else
+				x<<l.Obtener(q);
+			q=q.Siguiente();
+		}
+	}
+	x<<">";
+	return x;
+
+}
 ///////////////////////////////////////TNODOCALENDARIO//////////////////////////////////////////////////////////////////////
 
 TNodoCalendario::TNodoCalendario()
@@ -140,10 +243,7 @@ TListaPos::TListaPos(TListaPos &p)
 
 TListaPos::~TListaPos()
 {
-	if(pos!=NULL)
-	{
-		delete pos;
-	}
+	pos=NULL;
 }
 
 TListaPos &

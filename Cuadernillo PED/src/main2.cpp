@@ -47,6 +47,8 @@ int main()
 
 	  //lista3=lista.SumarSubl(4,2,lista2,0,1);
 
+	  cout<<lista<<endl;
+	  cout<<lista2<<endl;
 	  cout<<lista3<<endl;
 	   return 0;
 }

@@ -62,13 +62,22 @@ TCalendario:: operator=(const TCalendario &a)
 {
 	if(this != &a)
 	{
-		(*this).~TCalendario();
+		this->~TCalendario();
 
 		dia = a.dia;
 		mes = a.mes;
 		anyo = a.anyo;
 
-		mensaje = a.mensaje;
+		if(a.mensaje != NULL)
+		{
+			this->mensaje = new char[strlen(a.mensaje)+1];
+			strcpy(mensaje,a.mensaje);
+		}
+		else
+		{
+			this->mensaje = NULL;
+		}
+
 	}
 	return *this;
 }

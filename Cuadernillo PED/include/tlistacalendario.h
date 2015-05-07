@@ -32,7 +32,7 @@ private:
 
 
 class TListaCalendario{
-	friend ostream & operator <<(ostream &, TListaCalendario &);
+	friend ostream & operator <<(ostream &,const TListaCalendario &);
 	friend class TListaPos;
 	friend class TNodoCalendario;
 public:
@@ -46,13 +46,13 @@ public:
 	bool operator==(TListaCalendario &);
 	TListaCalendario operator+(TListaCalendario &);
 	TListaCalendario operator-(TListaCalendario &);
-	bool Insertar(TCalendario &);
+	bool Insertar(const TCalendario &);
 	bool Borrar(TCalendario &);
 	bool Borrar(TListaPos &);
 	bool Borrar(int,int,int);
-	bool EsVacia();
-	TCalendario Obtener(TListaPos &);
-	bool Buscar(TCalendario &);
+	bool EsVacia() const;
+	TCalendario Obtener(const TListaPos &) const;
+	bool Buscar(const TCalendario &);
 	int Longitud();
 	TListaPos Primera() const;
 	TListaPos Ultima() const;
