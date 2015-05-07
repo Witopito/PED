@@ -13,28 +13,17 @@ TListaCalendario::TListaCalendario() {
 
 TListaCalendario::TListaCalendario(TListaCalendario &l)
 {
-	TListaPos p,q;
-
-	//PRIMER NODO
-	primero=new TNodoCalendario(*l.primero);
+	TListaPos q;
+	if(!this->EsVacia())
+	{
+		this->~TListaCalendario();
+	}
 	q=l.Primera();
-	p=q;
-	q=q.Siguiente();
-
-	//A PARTIR DE SEGUNDO NODO
 	while(!q.EsVacia())
 	{
-		TNodoCalendario *aux=new TNodoCalendario();
-		aux=q.pos;
-		p.pos->siguiente=aux;
-
-		//actualiza p al actual, e incrementa q para el siguiente
-		p=q;
+		Insertar(q.pos->c);
 		q=q.Siguiente();
 	}
-
-	//pone a null ultimo elemento de la lista
-	p.pos->siguiente=NULL;
 }
 
 TListaCalendario::~TListaCalendario() {
@@ -51,15 +40,38 @@ TListaCalendario::~TListaCalendario() {
 }
 
 TListaCalendario &
-TListaCalendario::operator=(TListaCalendario &l)
+TListaCalendario::operator=(const TListaCalendario &l)
 {
+	TListaPos q;
+	if(!this->EsVacia())
+	{
+		this->~TListaCalendario();
+	}
+	q=l.Primera();
+	while(!q.EsVacia())
+	{
+		Insertar(q.pos->c);
+		q=q.Siguiente();
+	}
 	return *this;
 }
 
 bool
 TListaCalendario::operator==(TListaCalendario &l)
 {
- return false;
+ 	TListaPos p,q;
+ 	p=l.Primera();
+ 	q=Primera();
+ 	while(!q.EsVacia()&&!p.EsVacia())
+ 	{
+ 		if(p.pos->c!=q.pos->c)
+ 			return false;
+ 		p=p.Siguiente();
+ 		q=q.Siguiente();
+ 	}
+ 	if(!q.EsVacia()||!p.EsVacia())
+ 		return false;
+ 	return true;
 }
 
 
@@ -96,8 +108,8 @@ TListaCalendario::Insertar(const TCalendario &cal)
 			{
 				TNodoCalendario *nuevo = new TNodoCalendario();
 				nuevo->c=cal;
-				primero=nuevo;
 				nuevo->siguiente=p.pos;
+				primero=nuevo;
 				return true;
 			}
 			else	//a partir de la segunda
@@ -117,7 +129,7 @@ TListaCalendario::Insertar(const TCalendario &cal)
 				}
 				TNodoCalendario *nuevo = new TNodoCalendario();
 				nuevo->c=cal;
-				primero=nuevo;
+				p.pos->siguiente=nuevo;
 				return true;
 			}
 		}
@@ -133,6 +145,40 @@ TListaCalendario::Insertar(const TCalendario &cal)
 	return false;
 
 }
+
+
+bool
+TListaCalendario::Borrar(const TCalendario &cal)
+{
+	TListaPos p,q;
+
+
+	if(Buscar(cal))
+	{
+		if(primero->c==cal)
+		{
+			primero=primero->siguiente;
+			return true;
+		}
+		else
+		{
+			p=Primera();
+			q=p.Siguiente();
+			while(!q.EsVacia())
+			{
+				if(q.pos->c==cal)
+				{
+					p.pos->siguiente=q.pos->siguiente;
+					return true;
+				}
+				p=q;
+				q=q.Siguiente();
+			}
+		}
+	}
+	return false;
+}
+
 
 bool
 TListaCalendario::Buscar(const TCalendario &cal)

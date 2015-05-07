@@ -40,14 +40,14 @@ public:
 	TListaCalendario();
 	TListaCalendario(TListaCalendario &);
 	~TListaCalendario();
-	TListaCalendario & operator=(TListaCalendario &);
+	TListaCalendario & operator=(const TListaCalendario &);
 
 	//Metodos
 	bool operator==(TListaCalendario &);
 	TListaCalendario operator+(TListaCalendario &);
 	TListaCalendario operator-(TListaCalendario &);
 	bool Insertar(const TCalendario &);
-	bool Borrar(TCalendario &);
+	bool Borrar(const TCalendario &);
 	bool Borrar(TListaPos &);
 	bool Borrar(int,int,int);
 	bool EsVacia() const;
