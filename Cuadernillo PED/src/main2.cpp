@@ -45,12 +45,13 @@ int main()
 	  lista2.Insertar(h);
 	  lista2.Insertar(i);
 	  lista2.Insertar(j);
-	  //lista4=lista2;
+	  lista4=lista2;
 	  //lista3=lista.SumarSubl(4,2,lista2,0,1);
-	  lista2.Borrar(h);
+
 
 	  TListaCalendario lista5(lista2);
 
+	  lista2.Borrar(h);
 
 	  cout<<lista<<endl;
 	  cout<<lista2<<endl;
@@ -58,20 +59,15 @@ int main()
 	  cout<<lista4<<endl;
 	  cout<<lista5<<endl;
 
-	  if(lista2==lista4)
-		  cout << "lista2 es igual a lista4" << endl;
+	  if(lista4.Borrar(18,10,2006))
+		  cout << "EXITO" << endl;
 	  else
-		  cout << "lista2 NO es igual a lista4" << endl;
-
-	  if(lista2==lista5)
-	  		  cout << "lista2 es igual a lista5" << endl;
+		  cout << "FRACASO" << endl;
+	  cout<<lista4<<endl;
+	  if(lista4.Borrar(17,10,2006))
+	  		  cout << "EXITO" << endl;
 	  	  else
-	  		  cout << "lista2 NO es igual a lista5" << endl;
-
-	  if(lista3==lista4)
-	  		  cout << "lista3 es igual a lista4" << endl;
-	  	  else
-	  		  cout << "lista3 NO es igual a lista4" << endl;
+	  		  cout << "FRACASO" << endl;
 
 	   return 0;
 }

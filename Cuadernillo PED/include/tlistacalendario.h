@@ -48,7 +48,7 @@ public:
 	TListaCalendario operator-(TListaCalendario &);
 	bool Insertar(const TCalendario &);
 	bool Borrar(const TCalendario &);
-	bool Borrar(TListaPos &);
+	bool Borrar(const TListaPos &);
 	bool Borrar(int,int,int);
 	bool EsVacia() const;
 	TCalendario Obtener(const TListaPos &) const;
@@ -60,6 +60,7 @@ public:
 	TListaCalendario ExtraerRango(int n1, int n2);
 private:
 	TNodoCalendario *primero;
+	bool InsertarCopia(const TCalendario &cal);
 };
 
 class TListaPos{
@@ -73,8 +74,8 @@ public:
 	TListaPos & operator=(const TListaPos &);
 
 	//metodos
-	bool operator==(TListaPos &);
-	bool operator!=(TListaPos &);
+	bool operator==(const TListaPos &);
+	bool operator!=(const TListaPos &);
 	TListaPos Siguiente();
 	bool EsVacia();
 private:

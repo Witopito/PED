@@ -13,17 +13,24 @@ TListaCalendario::TListaCalendario() {
 
 TListaCalendario::TListaCalendario(TListaCalendario &l)
 {
-	TListaPos q;
-	if(!this->EsVacia())
-	{
-		this->~TListaCalendario();
-	}
+	TListaPos q,i;
 	q=l.Primera();
-	while(!q.EsVacia())
-	{
-		Insertar(q.pos->c);
+
+	TNodoCalendario *nuevo = new TNodoCalendario();   //Se crea el primer nodo, y se le asigna memoria
+	nuevo->c = q.pos->c;								//Se copia el calendario del primer nodo, al nuevo primer nodo
+	primero=nuevo;
+	i.pos=primero;
+	q=q.Siguiente();									//el iterador se incrementa
+
+	//a partir de la segunda posicion
+	while(!q.EsVacia()){
+		TNodoCalendario *nuevo = new TNodoCalendario();
+		nuevo->c = q.pos->c;
+		i.pos->siguiente=nuevo;
 		q=q.Siguiente();
+		i=i.Siguiente();
 	}
+
 }
 
 TListaCalendario::~TListaCalendario() {
@@ -42,17 +49,30 @@ TListaCalendario::~TListaCalendario() {
 TListaCalendario &
 TListaCalendario::operator=(const TListaCalendario &l)
 {
-	TListaPos q;
+
 	if(!this->EsVacia())
 	{
 		this->~TListaCalendario();
 	}
+
+	TListaPos q,i;
 	q=l.Primera();
-	while(!q.EsVacia())
-	{
-		Insertar(q.pos->c);
+
+	TNodoCalendario *nuevo = new TNodoCalendario();   //Se crea el primer nodo, y se le asigna memoria
+	nuevo->c = q.pos->c;								//Se copia el calendario del primer nodo, al nuevo primer nodo
+	primero=nuevo;
+	i.pos=primero;
+	q=q.Siguiente();									//el iterador se incrementa
+
+	//a partir de la segunda posicion
+	while(!q.EsVacia()){
+		TNodoCalendario *nuevo = new TNodoCalendario();
+		nuevo->c = q.pos->c;
+		i.pos->siguiente=nuevo;
 		q=q.Siguiente();
+		i=i.Siguiente();
 	}
+
 	return *this;
 }
 
@@ -90,12 +110,12 @@ TListaCalendario::Primera() const
 	return prim;
 }
 
+
+
 bool
 TListaCalendario::Insertar(const TCalendario &cal)
 {
 	TListaPos p,q;
-
-
 
 	if(!EsVacia())
 	{
@@ -157,7 +177,10 @@ TListaCalendario::Borrar(const TCalendario &cal)
 	{
 		if(primero->c==cal)
 		{
+			TNodoCalendario *aux = new TNodoCalendario();
+			aux=primero;
 			primero=primero->siguiente;
+			delete aux;
 			return true;
 		}
 		else
@@ -168,7 +191,10 @@ TListaCalendario::Borrar(const TCalendario &cal)
 			{
 				if(q.pos->c==cal)
 				{
+					TNodoCalendario *aux = new TNodoCalendario();
+					aux=p.pos->siguiente;
 					p.pos->siguiente=q.pos->siguiente;
+					delete aux;
 					return true;
 				}
 				p=q;
@@ -177,6 +203,53 @@ TListaCalendario::Borrar(const TCalendario &cal)
 		}
 	}
 	return false;
+}
+
+
+bool
+TListaCalendario::Borrar(const TListaPos &posicion)
+{
+	TListaPos p,q;
+
+	p=Primera();
+	q=p.Siguiente();
+	while(!q.EsVacia())
+	{
+		if(q==posicion)
+		{
+			TNodoCalendario *aux = new TNodoCalendario();
+			aux=q.pos;
+			p.pos->siguiente=q.pos->siguiente;
+			delete aux;
+			return true;
+		}
+		p=q;
+		q=q.Siguiente();
+	}
+
+	return false;
+}
+
+//NO FUNCIONA BIEN, REHACER Y PROBAR
+bool
+TListaCalendario::Borrar(int d,int m,int a)
+{
+	TCalendario aux(d,m,a,NULL);
+	TListaPos q;
+	q=Primera();
+	bool borrado=false;
+
+	while(!q.EsVacia())
+	{
+		if(q.pos->c<aux)
+		{
+			Borrar(q.pos->c);
+			borrado=true;
+		}
+		q=q.Siguiente();
+	}
+
+	return borrado;
 }
 
 
@@ -301,7 +374,7 @@ TListaPos::operator=(const TListaPos &p)
 
 //metodos
 bool
-TListaPos::operator==(TListaPos &p)
+TListaPos::operator==(const TListaPos &p)
 {
 	if(pos==p.pos)
 		return true;
@@ -310,7 +383,7 @@ TListaPos::operator==(TListaPos &p)
 }
 
 bool
-TListaPos::operator!=(TListaPos &p)
+TListaPos::operator!=(const TListaPos &p)
 {
 	if(*this==p)
 		return false;
