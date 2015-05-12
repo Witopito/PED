@@ -40,7 +40,7 @@ TVectorCalendario::~TVectorCalendario() {
 }
 
 
-TVectorCalendario::TVectorCalendario(TVectorCalendario &v)
+TVectorCalendario::TVectorCalendario(const TVectorCalendario &v)
 {
 	if(this->c!=NULL)
 		{
@@ -80,7 +80,7 @@ TVectorCalendario::operator=(const TVectorCalendario &v)
 }
 
 bool
-TVectorCalendario::operator==(TVectorCalendario &v)
+TVectorCalendario::operator==(const TVectorCalendario &v)
 {
 	bool igualdad = true;
 	if(this->tamano==v.Tamano())
@@ -101,7 +101,7 @@ TVectorCalendario::operator==(TVectorCalendario &v)
 }
 
 bool
-TVectorCalendario::operator!=(TVectorCalendario &v)
+TVectorCalendario::operator!=(const TVectorCalendario &v)
 {
 	if(*this==v)
 		return false;
@@ -132,7 +132,7 @@ TVectorCalendario::operator[](int pos) const
 }
 
 int
-TVectorCalendario::Tamano()
+TVectorCalendario::Tamano() const
 {
 	return this->tamano;
 }
@@ -249,7 +249,7 @@ ostream& operator<<(ostream &x, const TVectorCalendario &vec)
 
 
 bool
-TVectorCalendario::ExisteCal(TCalendario &c)
+TVectorCalendario::ExisteCal(const TCalendario &c)
 {
 	for(int i=1;i<=tamano;i++)
 	{

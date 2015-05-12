@@ -20,18 +20,18 @@ public:
 //forma canónica
 TVectorCalendario();
 TVectorCalendario(int);
-TVectorCalendario(TVectorCalendario &);
+TVectorCalendario(const TVectorCalendario &);
 ~TVectorCalendario();
 TVectorCalendario & operator=(const TVectorCalendario &);
 
 //metodos
-bool operator==(TVectorCalendario &);
-bool operator!=(TVectorCalendario&);
+bool operator==(const TVectorCalendario &);
+bool operator!=(const TVectorCalendario&);
 TCalendario & operator[](int);
 TCalendario operator[](int) const;
-int Tamano();
+int Tamano() const;
 int Ocupadas();
-bool ExisteCal(TCalendario &);
+bool ExisteCal(const TCalendario &);
 void MostrarMensajes(int,int,int);
 bool Redimensionar(int);
 
