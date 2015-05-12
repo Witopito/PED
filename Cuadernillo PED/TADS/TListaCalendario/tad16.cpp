@@ -26,7 +26,7 @@ main(void)
   TListaCalendario lista;
   TListaCalendario lista2;
   TListaCalendario lista3;
-
+  TListaCalendario lista4;
   lista.Insertar(a);
   lista.Insertar(b);
   lista.Insertar(c);

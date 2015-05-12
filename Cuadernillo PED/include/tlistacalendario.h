@@ -21,9 +21,9 @@ class TNodoCalendario {
 public:
 	//forma canonica
 	TNodoCalendario();
-	TNodoCalendario(TNodoCalendario &);
+	TNodoCalendario(const TNodoCalendario &);
 	~TNodoCalendario();
-	TNodoCalendario & operator=(TNodoCalendario &);
+	TNodoCalendario & operator=(const TNodoCalendario &);
 
 private:
 	TCalendario c; //Layering
@@ -38,14 +38,14 @@ class TListaCalendario{
 public:
 	//Forma canonica
 	TListaCalendario();
-	TListaCalendario(TListaCalendario &);
+	TListaCalendario(const TListaCalendario &);
 	~TListaCalendario();
 	TListaCalendario & operator=(const TListaCalendario &);
 
 	//Metodos
-	bool operator==(TListaCalendario &);
-	TListaCalendario operator+(TListaCalendario &);
-	TListaCalendario operator-(TListaCalendario &);
+	bool operator==(const TListaCalendario &);
+	TListaCalendario operator+(const TListaCalendario &);
+	TListaCalendario operator-(const TListaCalendario &);
 	bool Insertar(const TCalendario &);
 	bool Borrar(const TCalendario &);
 	bool Borrar(const TListaPos &);
@@ -56,7 +56,7 @@ public:
 	int Longitud();
 	TListaPos Primera() const;
 	TListaPos Ultima() const;
-	TListaCalendario SumarSub1(int I_L1, int F_L1, TListaCalendario & L2, int I_L2, int F_L2);
+	TListaCalendario SumarSubl(int I_L1, int F_L1,const TListaCalendario & L2, int I_L2, int F_L2);
 	TListaCalendario ExtraerRango(int n1, int n2);
 private:
 	TNodoCalendario *primero;
@@ -69,7 +69,7 @@ class TListaPos{
 public:
 	//forma canonica
 	TListaPos();
-	TListaPos(TListaPos &);
+	TListaPos(const TListaPos &);
 	~TListaPos();
 	TListaPos & operator=(const TListaPos &);
 
