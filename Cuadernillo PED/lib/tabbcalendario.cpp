@@ -74,7 +74,7 @@ TABBCalendario::operator=(const TABBCalendario &a)
 }
 
 bool
-TABBCalendario::Insertar(TCalendario &c)
+TABBCalendario::Insertar(const TCalendario &c)
 {
 	if(this->EsVacio())
 	{
@@ -147,7 +147,7 @@ TABBCalendario::Raiz()
 }
 
 bool
-TABBCalendario::EsVacio()
+TABBCalendario::EsVacio() const
 {
 	if(raiz == NULL)
 		return true;
@@ -238,7 +238,7 @@ TABBCalendario::auxBuscar(TABBCalendario a)
 }
 
 int
-TABBCalendario::Nodos()
+TABBCalendario::Nodos() const
 {
 	if(raiz==NULL)
 		return 0;
@@ -274,7 +274,7 @@ TABBCalendario::NodosHoja()
 }
 
 bool
-TABBCalendario::operator==(TABBCalendario &a)
+TABBCalendario::operator==(const TABBCalendario &a)
 {
 	bool auxiz=true,auxde=true;
 	//TABBCalendario aux(*this);
@@ -314,13 +314,13 @@ TABBCalendario::Altura()
 
 
 bool
-TABBCalendario::Borrar(TCalendario &c)
+TABBCalendario::Borrar(const TCalendario &c)
 {
 	if(Buscar(c))
 	{
-		if(c < raiz->item)
+		if(raiz->item > c)
 			raiz->iz.Borrar(c);
-		else if(c > raiz->item)
+		else if(raiz->item < c)
 			raiz->de.Borrar(c);
 		else
 		{

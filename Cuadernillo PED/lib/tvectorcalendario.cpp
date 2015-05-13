@@ -179,7 +179,7 @@ TVectorCalendario::Ocupadas()
 
 	for(int i=1;i<=aux.Tamano();i++)
 	{
-		if(!aux[i].EsVacio())
+		if(aux[i].EsVacio()==false)
 			contador++;
 	}
 

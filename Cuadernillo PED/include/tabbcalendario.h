@@ -29,13 +29,13 @@ public:
 
 
 	// Sobrecarga del operador igualdad
-	bool operator==( TABBCalendario &);
+	bool operator==(const TABBCalendario &);
 	// Devuelve TRUE si el árbol está vacío, FALSE en caso contrario
-	bool EsVacio();
+	bool EsVacio() const;
 	// Inserta el elemento en el árbol
-	bool Insertar(TCalendario &);
+	bool Insertar(const TCalendario &);
 	// Borra el elemento en el árbol
-	bool Borrar(TCalendario &);
+	bool Borrar(const TCalendario &);
 	// Devuelve TRUE si el elemento está en el árbol, FALSE en caso contrario
 	bool Buscar(const TCalendario &);
 	// Devuelve el elemento en la raíz del árbol
@@ -43,7 +43,7 @@ public:
 	// Devuelve la altura del árbol (la altura de un árbol vacío es 0)
 	int Altura();
 	// Devuelve el número de nodos del árbol (un árbol vacío posee 0 nodos)
-	int Nodos();
+	int Nodos() const;
 	// Devuelve el número de nodos hoja en el árbol (la raíz puede ser nodo hoja)
 	int NodosHoja();
 	// Devuelve el recorrido en inorden sobre un vector

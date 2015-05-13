@@ -666,7 +666,7 @@ bool TCalendario::operator<(const TCalendario &cal)
 
 //TCalendario vacío
 	bool
-	TCalendario::EsVacio()
+	TCalendario::EsVacio() const
 	{
 		if(dia==1 && mes==1 && anyo==1900 && mensaje==NULL)
 		{

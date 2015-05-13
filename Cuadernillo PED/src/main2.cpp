@@ -15,21 +15,39 @@ using namespace std;
 
 int main()
 {
-	 TVectorCalendario a(6);
-	   TCalendario ca1(1,1,2006, (char*) "uno"), ca2(1,2,2006, (char*) "dos"), ca3(1,3,2006, (char*) "tres");
-	   a[1]=ca1;
-	   a[2]=ca2;
-	   a[3]=ca3;
-	   a[4]=ca1;
-	   a[5]=ca2;
-	   a[6]=ca3;
-	   a.Redimensionar(0);
-	   cout<<a<<endl;
-	   a.Redimensionar(10);
-	   cout<<a<<endl;
-	   a.Redimensionar(2);
-	   cout<<a<<endl;
-	   return 0;
+	///Comprobar borrar hoja
+
+	  TABBCalendario a,b,c;
+	  TCalendario c7(7, 7,2000,(char *)"fecha"),c4(4,4,2000,(char *)"fecha"),c10(10,10,2000,(char *)"fecha");
+	  TCalendario c2(2,2,2000,(char *)"fecha"),c5(5,5,2000,(char *)"fecha"),c8(8,8,2000,(char *)"fecha"),c9(9,9,2000,(char *)"fecha");
+	  TCalendario c3(3,3,2000,(char *)"fecha"),c1(1,1,2000,(char *)"fecha"),c12(12,12,2000,(char *)"fecha"),c6(6,6,2000,(char *)"fecha");
+
+
+	  a.Insertar(c7);
+	  a.Insertar(c4);
+	  a.Insertar(c10);
+	  a.Insertar(c2);
+	  a.Insertar(c5);
+	  a.Insertar(c8);
+	  a.Insertar(c9);
+
+	  b.Insertar(c4);
+	  b.Insertar(c1);
+	  b.Insertar(c6);
+	  b.Insertar(c12);
+	  b.Insertar(c3);
+	  c=b;
+
+	  cout<<"Preorden="<<b.Preorden()<<endl;
+	  cout<<"Preorden="<<c.Preorden()<<endl;
+
+	  c=a+b;
+
+	  cout<<"Preorden="<<c.Preorden()<<endl;
+	  cout<<"Preorden="<<b.Preorden()<<endl;
+	  cout<<"Preorden="<<a.Preorden()<<endl;
+
+	  return 0;
 }
 
 
