@@ -309,6 +309,8 @@ TABBCalendario::Altura()
 		a2=raiz->de.Altura();
 		return (1+(a1<a2 ? a2 : a1));
 	}
+
+	return 0;
 }
 
 
