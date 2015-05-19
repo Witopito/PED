@@ -15,7 +15,7 @@ TNodoAVL::TNodoAVL():iz(),de()
 	fe=0;
 }
 
-TNodoAVL::TNodoAVL(TNodoAVL &n)
+TNodoAVL::TNodoAVL(const TNodoAVL &n)
 {
 	item=n.item;
 	iz=n.iz;
@@ -94,6 +94,67 @@ TAVLCalendario::Copiar(const TAVLCalendario &origen)
 	else
 		raiz=NULL;
 }
+
+bool TAVLCalendario::Borrar(const TCalendario &c) {
+	bool borrado;
+
+	if (Buscar(c)) {
+		if (raiz->item > c)
+			raiz->iz.Borrar(c);
+		else if (raiz->item < c)
+			raiz->de.Borrar(c);
+		else {
+			if (raiz->de.EsVacio()) {
+				TNodoAVL *aux = new TNodoAVL();
+				aux = raiz->iz.raiz;
+				raiz = aux;
+			} else if (raiz->iz.EsVacio()) {
+				TNodoAVL *aux = new TNodoAVL();
+				aux = raiz->de.raiz;
+				raiz = aux;
+			} else {
+				TNodoAVL *aux = new TNodoAVL(raiz->iz.Max());
+				TNodoAVL *aux2 = new TNodoAVL();
+				aux2 = raiz;
+				TCalendario *cal = new TCalendario(raiz->iz.Max().item);
+
+				aux->de = raiz->de;	//se cuelga la parte derecha del arbol actual, en la derecha del aux
+				aux2->iz.Borrar(*cal);
+				aux->iz = aux2->iz;
+
+				raiz = aux;
+			}
+		}
+		borrado=true;
+	} else {
+		borrado=false;
+		//cout << cerr << " El elemento no esta en el arbol" << endl;
+	}
+	if(raiz!=NULL)
+		equilibrado();
+	return borrado;
+}
+
+
+
+TNodoAVL
+TAVLCalendario::Max() {
+	TNodoAVL *aux = new TNodoAVL();
+	if (EsVacio()) {
+		return *aux;
+	}
+	if (raiz->de.EsVacio()) {
+		aux = raiz;
+		return *aux;
+	} else {
+
+		aux = new TNodoAVL(raiz->de.Max());
+		return *aux;
+	}
+
+	return *aux;
+}
+
 
 
 bool
@@ -212,7 +273,7 @@ TAVLCalendario::equilibrado()
 			rotacionDD();
 		else
 			rotacionDI();
-		//equilibrio=true;
+
 		raiz->fe=raiz->de.Altura()-raiz->iz.Altura();
 		if (raiz->iz.raiz != NULL)
 			raiz->iz.raiz->fe = raiz->iz.raiz->de.Altura() - raiz->iz.raiz->iz.Altura();
@@ -227,11 +288,19 @@ TAVLCalendario::equilibrado()
 			rotacionID();
 		//equilibrio=true;
 		raiz->fe = raiz->de.Altura() - raiz->iz.Altura();
-		raiz->iz.raiz->fe = raiz->iz.raiz->de.Altura() - raiz->iz.raiz->iz.Altura();
-		raiz->de.raiz->fe = raiz->de.raiz->de.Altura() - raiz->de.raiz->iz.Altura();
-		equilibrado();
+		if (raiz->iz.raiz != NULL)
+			raiz->iz.raiz->fe = raiz->iz.raiz->de.Altura() - raiz->iz.raiz->iz.Altura();
+		if (raiz->de.raiz != NULL)
+			raiz->de.raiz->fe = raiz->de.raiz->de.Altura() - raiz->de.raiz->iz.Altura();
+		//equilibrado();
 	}
 	else{}
+	raiz->fe=raiz->de.Altura()-raiz->iz.Altura();
+	if (raiz->iz.raiz != NULL)
+		raiz->iz.raiz->fe = raiz->iz.raiz->de.Altura() - raiz->iz.raiz->iz.Altura();
+	if (raiz->de.raiz != NULL)
+		raiz->de.raiz->fe = raiz->de.raiz->de.Altura() - raiz->de.raiz->iz.Altura();
+
 
 }
 
@@ -297,8 +366,14 @@ TAVLCalendario::Altura()
 
 	if(raiz!=NULL)
 	{
-		a1=raiz->iz.Altura();
-		a2=raiz->de.Altura();
+		if(!raiz->iz.EsVacio())
+			a1=raiz->iz.Altura();
+		else
+			a1=0;
+		if(!raiz->de.EsVacio())
+			a2=raiz->de.Altura();
+		else
+			a2=0;
 		return (1+(a1<a2 ? a2 : a1));
 	}
 
@@ -408,32 +483,8 @@ TAVLCalendario::PreordenAux(TVectorCalendario &v, int &a)
 	}
 }
 
-/*
-TVectorCalendario
-TAVLCalendario::Niveles()
-{
-	int contador=1;
-	queue<TAVLCalendario> cola;
-	TVectorCalendario v(Nodos());
-	TAVLCalendario aux;
-	aux=(*this);
-	cola.push(aux);
 
-	while(!cola.empty())
-	{
-		aux=(cola.front());
-		v[contador]=aux.raiz->item;
-		contador++;
-		cola.pop();
-		if(!aux.raiz->iz.EsVacio())
-			cola.push(aux.raiz->iz);
-		if(!aux.raiz->de.EsVacio())
-			cola.push(aux.raiz->de);
-	}
 
-	return v;
-}
-*/
 
 bool
 TAVLCalendario::operator==(const TAVLCalendario &a)

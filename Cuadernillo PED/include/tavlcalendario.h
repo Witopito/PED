@@ -79,6 +79,8 @@ private:
 	void rotacionID();
 	void rotacionII();
 	bool auxBuscar(TAVLCalendario a);
+	bool BorrarAux(const TCalendario &c);
+	TNodoAVL Max();
 };
 
 class TNodoAVL {
@@ -88,7 +90,7 @@ public:
 	//Constructor por defecto
 	TNodoAVL();
 	//Constructor copia
-	TNodoAVL(TNodoAVL &);
+	TNodoAVL(const TNodoAVL &);
 	//Destructor
 	~TNodoAVL();
 	// Sobrecarga del operador asignación
