@@ -72,8 +72,7 @@ bool TABBCalendario::Insertar(const TCalendario &c) {
 			raiz = x;
 			return true;
 		} else {
-			cout << cerr << " No se pueden insertar dos arboles repetidos"
-					<< endl;
+			//cout << cerr << " No se pueden insertar dos arboles repetidos"<< endl;
 			return false;
 		}
 	} else {
@@ -82,8 +81,7 @@ bool TABBCalendario::Insertar(const TCalendario &c) {
 			this->insertarOrdenado(c);
 			return true;
 		} else {
-			cout << cerr << " No se pueden insertar dos arboles repetidos"
-					<< endl;
+			//cout << cerr << " No se pueden insertar dos arboles repetidos"<< endl;
 		}
 	}
 	return false;
@@ -112,7 +110,7 @@ TCalendario TABBCalendario::Raiz() {
 	if (!EsVacio())
 		return raiz->item;
 	else
-		cout << cerr << " arbol vacio no tiene raiz" << endl;
+		//cout << cerr << " arbol vacio no tiene raiz" << endl;
 	return TCalendario();
 }
 
@@ -292,7 +290,7 @@ bool TABBCalendario::Borrar(const TCalendario &c) {
 			}
 		}
 	} else {
-		cout << cerr << " El elemento no esta en el arbol" << endl;
+		//cout << cerr << " El elemento no esta en el arbol" << endl;
 	}
 	return false;
 }

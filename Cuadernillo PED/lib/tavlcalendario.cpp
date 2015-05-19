@@ -308,7 +308,7 @@ TCalendario TAVLCalendario::Raiz() {
 	if (!EsVacio())
 		return raiz->item;
 	else
-		cout << cerr << " arbol vacio no tiene raiz" << endl;
+		//cout << cerr << " arbol vacio no tiene raiz" << endl;
 	return TCalendario();
 }
 
