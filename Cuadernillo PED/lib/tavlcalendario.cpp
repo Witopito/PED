@@ -121,7 +121,7 @@ TAVLCalendario::Insertar(const TCalendario &c)
 		if(!Buscar(c))
 		{
 			this->insertarOrdenado(c);
-			equilibrado();
+
 			return true;
 		}
 		else
@@ -162,7 +162,7 @@ TAVLCalendario::insertarOrdenado(TCalendario c)
 		else
 			raiz->de.insertarOrdenado(c);
 	}
-
+	equilibrado();
 }
 
 bool
@@ -201,7 +201,8 @@ TAVLCalendario::EsVacio() const
 void
 TAVLCalendario::equilibrado()
 {
-	bool equilibrio=false;
+
+
 	//se actualiza el factor de equilibrio
 	raiz->fe=raiz->de.Altura()-raiz->iz.Altura();
 
@@ -211,7 +212,12 @@ TAVLCalendario::equilibrado()
 			rotacionDD();
 		else
 			rotacionDI();
-		equilibrio=true;
+		//equilibrio=true;
+		raiz->fe=raiz->de.Altura()-raiz->iz.Altura();
+		if (raiz->iz.raiz != NULL)
+			raiz->iz.raiz->fe = raiz->iz.raiz->de.Altura() - raiz->iz.raiz->iz.Altura();
+		if (raiz->de.raiz != NULL)
+			raiz->de.raiz->fe = raiz->de.raiz->de.Altura() - raiz->de.raiz->iz.Altura();
 	}
 	else if(raiz->fe<-1)
 	{
@@ -219,24 +225,22 @@ TAVLCalendario::equilibrado()
 			rotacionII();
 		else
 			rotacionID();
-		equilibrio=true;
+		//equilibrio=true;
+		raiz->fe = raiz->de.Altura() - raiz->iz.Altura();
+		raiz->iz.raiz->fe = raiz->iz.raiz->de.Altura() - raiz->iz.raiz->iz.Altura();
+		raiz->de.raiz->fe = raiz->de.raiz->de.Altura() - raiz->de.raiz->iz.Altura();
+		equilibrado();
 	}
+	else{}
+
+}
+
+TCalendario TAVLCalendario::Raiz() {
+	if (!EsVacio())
+		return raiz->item;
 	else
-		equilibrio=false;
-
-	if(equilibrio==true)
-	{
-		//actualizacion fe raiz
-		raiz->fe=raiz->de.Altura()-raiz->iz.Altura();
-		//actualizacion fe iz
-		if(!raiz->iz.EsVacio())
-			raiz->iz.raiz->fe=raiz->iz.raiz->de.Altura()-raiz->iz.raiz->iz.Altura();
-		//actualizacion fe de
-		if(!raiz->de.EsVacio())
-			raiz->de.raiz->fe=raiz->de.raiz->de.Altura()-raiz->de.raiz->iz.Altura();
-	}
-
-	//return equilibrio;
+		cout << cerr << " arbol vacio no tiene raiz" << endl;
+	return TCalendario();
 }
 
 void
@@ -244,7 +248,7 @@ TAVLCalendario::rotacionDD()
 {
 	TNodoAVL *aux;
 	aux=raiz->de.raiz;
-	raiz->de.raiz=aux->iz.raiz;
+	raiz->de.raiz= raiz->de.raiz->iz.raiz;
 	aux->iz.raiz = raiz;
 	raiz=aux;
 }
@@ -252,25 +256,37 @@ TAVLCalendario::rotacionDD()
 void
 TAVLCalendario::rotacionDI()
 {
-	raiz->de.rotacionII();
-	rotacionDD();
+	TNodoAVL *aux;
+	aux = raiz->de.raiz;
+	raiz->de.raiz = aux->iz.raiz->iz.raiz;
+	aux->iz.raiz->iz.raiz = raiz;
+	raiz = aux->iz.raiz;
+	aux->iz.raiz = raiz->de.raiz;
+	raiz->de.raiz = aux;
+
 }
 
 void
 TAVLCalendario::rotacionID()
 {
-	raiz->iz.rotacionDD();
-	rotacionII();
+	TNodoAVL *aux;
+	aux = raiz->iz.raiz;
+	raiz->iz.raiz = aux->de.raiz->de.raiz;
+	aux->de.raiz->de.raiz = raiz;
+	raiz = aux->de.raiz;
+	aux->de.raiz = raiz->iz.raiz;
+	raiz->iz.raiz = aux;
 }
 
 void
 TAVLCalendario::rotacionII()
 {
 	TNodoAVL *aux;
-	aux=raiz->iz.raiz;
-	raiz->iz.raiz=aux->de.raiz;
+	aux = raiz->iz.raiz;
+	raiz->iz.raiz = raiz->iz.raiz->de.raiz;
 	aux->de.raiz = raiz;
-	raiz=aux;
+	raiz = aux;
+
 }
 
 
@@ -418,6 +434,62 @@ TAVLCalendario::Niveles()
 	return v;
 }
 */
+
+bool
+TAVLCalendario::operator==(const TAVLCalendario &a)
+{
+	bool auxiz=true,auxde=true;
+	//TABBCalendario aux(*this);
+
+	if(raiz==NULL && a.raiz==NULL)
+		return true;
+	if(Nodos()!=a.Nodos())
+		return false;
+	if(!Buscar(a.raiz->item))
+		return false;
+	else
+	{
+		if(!a.raiz->iz.EsVacio())
+			auxiz=this->auxBuscar(a.raiz->iz);
+		if(!a.raiz->de.EsVacio())
+			auxde=this->auxBuscar(a.raiz->de);
+		if(!auxiz || !auxde)
+			return false;
+	}
+
+	return true;
+}
+
+bool
+TAVLCalendario::operator!=(const TAVLCalendario &a)
+{
+	TAVLCalendario aux = (*this);
+	if(aux==a)
+		return false;
+
+	return true;
+}
+
+bool
+TAVLCalendario::auxBuscar(TAVLCalendario a)
+{
+	bool auxiz=true,auxde=true;
+	TAVLCalendario aux(*this);
+	if(!Buscar(a.raiz->item))
+		return false;
+	else
+	{
+		if(!a.raiz->iz.EsVacio())
+			auxiz=this->auxBuscar(a.raiz->iz);
+		if(!a.raiz->de.EsVacio())
+			auxde=this->auxBuscar(a.raiz->de);
+		if(!auxiz || !auxde)
+			return false;
+	}
+
+	return true;
+}
+
 
 ostream & operator<<(ostream &x, TAVLCalendario &a)
 {

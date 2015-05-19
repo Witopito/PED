@@ -78,6 +78,7 @@ private:
 	void rotacionDI();
 	void rotacionID();
 	void rotacionII();
+	bool auxBuscar(TAVLCalendario a);
 };
 
 class TNodoAVL {

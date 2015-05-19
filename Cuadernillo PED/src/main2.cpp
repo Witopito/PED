@@ -16,16 +16,17 @@ using namespace std;
 
 int main()
 {
-	TAVLCalendario a,b,c;
+	TAVLCalendario a;
+	  TCalendario *vectorc;
 
-	  TCalendario ca1(1,1,2000,(char *)"fecha"),ca2(2,2,2000,(char *)"fecha"),ca3(3,3,2000,(char *)"fecha");
+	  vectorc=new TCalendario[2000];
+	  for (int i=0; i<2000; i++)
+	  {
+	     vectorc[i].ModFecha(1,1,2000+i);
+	     a.Insertar(vectorc[i]);
+	  }
 
-	  if (a==b)
-	    cout<<"Iguales"<<endl;
-	  else
-	    cout<<"Distintos"<<endl;
-
-	  cout<<"a="<<a.Inorden()<<" b="<<b.Preorden()<<" c="<<c.Postorden()<<endl;
+	  cout<<"Inorden="<<a.Inorden()<<endl;
 	  return 0;
 }
 
